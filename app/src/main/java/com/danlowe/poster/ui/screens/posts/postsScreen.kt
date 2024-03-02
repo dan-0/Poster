@@ -12,6 +12,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.danlowe.poster.model.PostMessage
@@ -56,7 +57,8 @@ fun PostsScreen(state: UiState.Posts, submitPost: (PostMessage) -> Unit) {
       modifier = Modifier
         .fillMaxSize()
         // This is the main view in the column, so we want it to fill max weight
-        .weight(1f),
+        .weight(1f)
+        .testTag("postsList"),
       // Provide a default vertical spacing for the column
       verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
@@ -83,7 +85,7 @@ fun PostsScreen(state: UiState.Posts, submitPost: (PostMessage) -> Unit) {
 
     // This sits at the bottom of the parent column
     // Note we're passing in a modifier so we have spacing,
-    NewPostBar(state.userName, submitPost, modifier = Modifier.padding(top = 8.dp))
+    NewPostBar(state.userName, Modifier.padding(top = 8.dp), submitPost)
   }
 }
 

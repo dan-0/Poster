@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,7 +29,8 @@ fun PostItem(
   Card(
     modifier = modifier
       .fillMaxWidth()
-      .wrapContentHeight(),
+      .wrapContentHeight()
+      .testTag("postItem${postMessage.hashCode()}"),
     shape = RoundedCornerShape(8.dp),
     border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
   ) {
@@ -40,6 +42,7 @@ fun PostItem(
       Text(
         text = postMessage.message,
         style = MaterialTheme.typography.bodyLarge,
+        modifier = Modifier.testTag("postMessage"),
       )
       Column(
         modifier = Modifier.fillMaxWidth(),
@@ -48,10 +51,12 @@ fun PostItem(
         Text(
           text = postMessage.date.toDateString(),
           style = MaterialTheme.typography.bodySmall,
+          modifier = Modifier.testTag("postDate"),
         )
         Text(
           text = stringResource(R.string.post_username, postMessage.creator),
           style = MaterialTheme.typography.bodySmall,
+          modifier = Modifier.testTag("postCreator")
         )
       }
     }

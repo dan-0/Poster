@@ -15,6 +15,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
@@ -42,7 +43,7 @@ fun PostSearchBar(
   OutlinedTextField(
     value = searchQuery,
     onValueChange = { searchQuery = it },
-    modifier = modifier.fillMaxWidth(),
+    modifier = modifier.fillMaxWidth().testTag("searchBar"),
     placeholder = {
       Text(stringResource(R.string.search_posts))
     },

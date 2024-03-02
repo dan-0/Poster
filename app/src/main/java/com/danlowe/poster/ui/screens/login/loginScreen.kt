@@ -17,6 +17,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,7 +36,8 @@ fun LoginScreen(login: (String) -> Unit) {
     modifier = Modifier
       .fillMaxSize()
       // Note, we're using dp directly, you may want a dimens object for this
-      .padding(16.dp),
+      .padding(16.dp)
+      .testTag("loginScreen"),
     verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
     horizontalAlignment = Alignment.CenterHorizontally
   ) {
@@ -46,13 +48,16 @@ fun LoginScreen(login: (String) -> Unit) {
     }
 
     // A simple welcome message
-    Text(stringResource(R.string.welcome_message))
+    Text(
+      stringResource(R.string.welcome_message),
+      modifier = Modifier.testTag("welcomeMessage")
+    )
 
     // User input field with a label
     OutlinedTextField(
       value = userName,
       onValueChange = { userName = it },
-      modifier = Modifier.fillMaxWidth(),
+      modifier = Modifier.fillMaxWidth().testTag("usernameInput"),
       label = { Text(stringResource(R.string.username)) }
     )
 
@@ -65,7 +70,10 @@ fun LoginScreen(login: (String) -> Unit) {
       horizontalArrangement = Arrangement.End
     ) {
       // Simple button with click behavior and text
-      Button(onClick = { login(userName.text) }) {
+      Button(
+        onClick = { login(userName.text) },
+        modifier = Modifier.testTag("loginButton")
+      ) {
         Text(stringResource(R.string.login))
       }
     }

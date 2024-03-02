@@ -3,4 +3,9 @@
     <string name="welcome_message">Welcome to Poster, please enter your username</string>
     <string name="username">Username</string>
     <string name="login">Login</string>
+    <string name="clear_search">Clear search</string>
+    <string name="post_username">User: %1$s</string>
+    <string name="submit_new_post">Submit new post</string>
+    <string name="users_posts">%1$s\'s Posts</string>
+    <string name="search_posts">Search posts…</string>
 </resources>

@@ -33,7 +33,15 @@ class HomeViewModel(
   }
 
   fun signIn(userName: String) {
-    loginRepo.signIn(UserName(userName))
+    viewModelScope.launch(Dispatchers.IO) {
+      loginRepo.signIn(UserName(userName))
+    }
+  }
+
+  fun submitPost(postMessage: PostMessage) {
+    viewModelScope.launch(Dispatchers.IO) {
+      postsRepo.submitPost(postMessage)
+    }
   }
 }
 

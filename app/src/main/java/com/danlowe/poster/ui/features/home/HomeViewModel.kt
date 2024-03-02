@@ -31,6 +31,10 @@ class HomeViewModel(
       }
     }
   }
+
+  fun signIn(userName: String) {
+    loginRepo.signIn(UserName(userName))
+  }
 }
 
 sealed class UiState {

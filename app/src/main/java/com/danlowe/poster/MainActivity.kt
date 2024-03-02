@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.danlowe.poster.ui.features.home.HomeViewModel
 import com.danlowe.poster.ui.features.home.UiState
+import com.danlowe.poster.ui.screens.login.LoginScreen
 import com.danlowe.poster.ui.theme.PosterTheme
 
 class MainActivity : ComponentActivity() {
@@ -28,7 +29,9 @@ class MainActivity : ComponentActivity() {
         Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
           val state = viewModel.state.collectAsState()
           when (state.value) {
-            is UiState.Login -> TODO()
+            is UiState.Login -> LoginScreen { userName ->
+              viewModel.signIn(userName)
+            }
             is UiState.Posts -> TODO()
           }
         }

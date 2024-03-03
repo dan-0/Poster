@@ -28,7 +28,7 @@ import kotlinx.collections.immutable.toImmutableList
 fun PostsScreen(state: UiState.Posts, submitPost: (PostMessage) -> Unit) {
 
   // Note, there is a bug here, because we don't use rememberSaveable, this is lost on
-  //  configuration change, but
+  //  configuration change, but ends up being re-emitted from the search because it is saved there
   var searchQuery by remember {
     mutableStateOf("")
   }
@@ -49,7 +49,8 @@ fun PostsScreen(state: UiState.Posts, submitPost: (PostMessage) -> Unit) {
   Column(
     modifier = Modifier
       .fillMaxSize()
-      .padding(16.dp),
+      .padding(horizontal = 16.dp)
+      .padding(bottom = 16.dp),
   ) {
 
     // We use a LazyColumn when we want a memory efficient list of items like a RecyclerView
@@ -67,7 +68,7 @@ fun PostsScreen(state: UiState.Posts, submitPost: (PostMessage) -> Unit) {
       // the state
       // Items are added in order of display
       item("postHeader") {
-        PostHeader(state.userName)
+        PostHeader(state.userName, modifier = Modifier.padding(top = 16.dp))
       }
 
       item("postSearchBar") {

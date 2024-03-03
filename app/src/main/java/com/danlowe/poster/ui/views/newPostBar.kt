@@ -3,8 +3,8 @@ package com.danlowe.poster.ui.views
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
@@ -75,7 +75,7 @@ fun NewPostBar(
         modifier = Modifier.testTag("submitNewPost")
       ) {
         Icon(
-          imageVector = Icons.Filled.Send,
+          imageVector = Icons.AutoMirrored.Filled.Send,
           contentDescription = stringResource(R.string.submit_new_post)
         )
       }

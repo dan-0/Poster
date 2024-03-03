@@ -1,0 +1,12 @@
+
+<resources>
+    <string name="app_name">بوستر</string>
+    <string name="welcome_message">مرحبًا بك في بوستر، الرجاء إدخال اسم المستخدم الخاص بك</string>
+    <string name="username">اسم المستخدم</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="clear_search">مسح البحث</string>
+    <string name="post_username">المستخدم: %1$s</string>
+    <string name="submit_new_post">إرسال منشور جديد</string>
+    <string name="users_posts">منشورات %1$s</string>
+    <string name="search_posts">بحث عن منشورات…</string>
+</resources>

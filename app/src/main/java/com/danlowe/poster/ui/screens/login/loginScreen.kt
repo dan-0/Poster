@@ -34,10 +34,11 @@ fun LoginScreen(login: (String) -> Unit) {
   // Use the outer column to center and space the contents
   Column(
     modifier = Modifier
-      .fillMaxSize()
-      // Note, we're using dp directly, you may want a dimens object for this
-      .padding(16.dp)
-      .testTag("loginScreen"),
+        .fillMaxSize()
+        // Note, we're using dp directly, you may want a dimens object for this
+        .padding(16.dp)
+//      .border(1.dp, Color.Blue) // <- Order matters!
+        .testTag("loginScreen"),
     verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
     horizontalAlignment = Alignment.CenterHorizontally
   ) {
@@ -49,7 +50,7 @@ fun LoginScreen(login: (String) -> Unit) {
 
     // A simple welcome message
     Text(
-      stringResource(R.string.welcome_message),
+      text = stringResource(R.string.welcome_message),
       modifier = Modifier.testTag("welcomeMessage")
     )
 
@@ -57,8 +58,12 @@ fun LoginScreen(login: (String) -> Unit) {
     OutlinedTextField(
       value = userName,
       onValueChange = { userName = it },
-      modifier = Modifier.fillMaxWidth().testTag("usernameInput"),
-      label = { Text(stringResource(R.string.username)) }
+      modifier = Modifier
+          .fillMaxWidth()
+          .testTag("usernameInput"),
+      label = {
+        Text(stringResource(R.string.username))
+      }
     )
 
     // Space out the layout using weight so the CTA is pushed to the bottom

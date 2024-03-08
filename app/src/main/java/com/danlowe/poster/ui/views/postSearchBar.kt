@@ -43,10 +43,9 @@ fun PostSearchBar(
   OutlinedTextField(
     value = searchQuery,
     onValueChange = { searchQuery = it },
-    modifier = modifier.fillMaxWidth().testTag("searchBar"),
-    placeholder = {
-      Text(stringResource(R.string.search_posts))
-    },
+    modifier = modifier
+        .fillMaxWidth()
+        .testTag("searchBar"),
     label = {
       Text(stringResource(R.string.search_posts))
     },

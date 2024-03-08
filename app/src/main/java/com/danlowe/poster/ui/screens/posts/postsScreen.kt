@@ -3,6 +3,7 @@ package com.danlowe.poster.ui.screens.posts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -56,7 +57,7 @@ fun PostsScreen(state: UiState.Posts, submitPost: (PostMessage) -> Unit) {
     // We use a LazyColumn when we want a memory efficient list of items like a RecyclerView
     LazyColumn(
       modifier = Modifier
-        .fillMaxSize()
+        .fillMaxWidth()
         // This is the main view in the column, so we want it to fill max weight
         .weight(1f)
         .testTag("postsList"),

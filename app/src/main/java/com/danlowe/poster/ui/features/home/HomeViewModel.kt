@@ -1,47 +1,65 @@
 package com.danlowe.poster.ui.features.home
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.danlowe.poster.model.PostMessage
-import com.danlowe.poster.model.UserName
-import com.danlowe.poster.repo.login.LoginRepo
-import com.danlowe.poster.repo.login.MemoryLoginRepo
-import com.danlowe.poster.repo.posts.MemoryPostRepo
-import com.danlowe.poster.repo.posts.PostsRepo
-import com.danlowe.poster.utils.AppDispatchers
-import com.danlowe.poster.utils.RealAppDispatchers
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.launch
+import java.time.Instant
+import java.time.temporal.ChronoUnit
 
-class HomeViewModel(
-  private val loginRepo: LoginRepo = MemoryLoginRepo(),
-  private val postsRepo: PostsRepo = MemoryPostRepo(),
-  private val dispatchers: AppDispatchers = RealAppDispatchers()
-) : ViewModel() {
-  private val _state = MutableStateFlow<UiState>(UiState.Login)
-  val state: StateFlow<UiState> get() = _state
+class HomeViewModel() : ViewModel() {
 
-  init {
-    viewModelScope.launch(dispatchers.io) {
-      loginRepo.getUserName().combine(postsRepo.getPosts()) { userName, posts ->
-        UiState.Posts(userName, posts)
-      }.collect {
-        _state.value = it
-      }
-    }
+  private val _state = MutableStateFlow(
+    PostsState(
+      persistentListOf(
+        PostMessage(
+          creator = "Dan",
+          message = "Hello everyone!",
+          date = TEST_TIME.toEpochMilli()
+        ),
+        PostMessage(
+          creator = "Dan",
+          message = "How do you tell if the keyboard is showing on Android?",
+          date = TEST_TIME.minus(20, ChronoUnit.HOURS).toEpochMilli()
+        ),
+        PostMessage(
+          creator = "Dan",
+          message = "I am a Material droid living in a Material world!",
+          date = TEST_TIME.minus(41, ChronoUnit.HOURS).toEpochMilli()
+        ),
+        PostMessage(
+          creator = "Dan",
+          message = "Never",
+          date = TEST_TIME.minus(62, ChronoUnit.HOURS).toEpochMilli()
+        ),
+        PostMessage(
+          creator = "Dan",
+          message = "gonna",
+          date = TEST_TIME.minus(83, ChronoUnit.HOURS).toEpochMilli()
+        ),
+        PostMessage(
+          creator = "Dan",
+          message = "give",
+          date = TEST_TIME.minus(104, ChronoUnit.HOURS).toEpochMilli()
+        ),
+        PostMessage(
+          creator = "Dan",
+          message = "you",
+          date = TEST_TIME.minus(115, ChronoUnit.HOURS).toEpochMilli()
+        ),
+        PostMessage(
+          creator = "Dan",
+          message = "up",
+          date = TEST_TIME.minus(126, ChronoUnit.HOURS).toEpochMilli()
+        ),
+      )
+    )
+  )
+  val state: StateFlow<PostsState> get() = _state
+
+  companion object {
+    private val TEST_TIME = Instant.ofEpochMilli(1710021088)
   }
 
-  fun signIn(userName: String) {
-    viewModelScope.launch(dispatchers.io) {
-      loginRepo.signIn(UserName(userName))
-    }
-  }
-
-  fun submitPost(postMessage: PostMessage) {
-    viewModelScope.launch(dispatchers.io) {
-      postsRepo.submitPost(postMessage)
-    }
-  }
 }

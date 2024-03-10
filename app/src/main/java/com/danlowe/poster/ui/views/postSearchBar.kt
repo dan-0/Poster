@@ -10,10 +10,9 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
@@ -29,20 +28,23 @@ fun PostSearchBar(
   modifier: Modifier = Modifier,
   searchFilter: (String) -> Unit,
 ) {
-  var searchQuery by rememberSaveable(stateSaver = TextFieldValue.Saver) {
+  val searchQuery: MutableState<TextFieldValue> = rememberSaveable(
+    stateSaver = TextFieldValue.Saver
+  ) {
     mutableStateOf(TextFieldValue())
   }
 
   // Debounce the search query
   // We use [searchQuery] as a key, so that whenever it's changed, the launched effect restarts
-  LaunchedEffect(key1 = searchQuery) {
+  LaunchedEffect(key1 = searchQuery.value) {
     delay(500)
-    searchFilter(searchQuery.text)
+    searchFilter(searchQuery.value.text)
   }
 
   OutlinedTextField(
-    value = searchQuery,
-    onValueChange = { searchQuery = it },
+    value = searchQuery.value,
+    onValueChange = { searchQuery.value = it },
+
     modifier = modifier
         .fillMaxWidth()
         .testTag("searchBar"),
@@ -50,7 +52,7 @@ fun PostSearchBar(
       Text(stringResource(R.string.search_posts))
     },
     leadingIcon = {
-      IconButton(onClick = { searchQuery = TextFieldValue() }) {
+      IconButton(onClick = { searchQuery.value = TextFieldValue() }) {
         Icon(
           imageVector = Icons.Filled.Clear,
           contentDescription = stringResource(R.string.clear_search)

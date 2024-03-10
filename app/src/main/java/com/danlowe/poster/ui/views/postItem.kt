@@ -30,6 +30,7 @@ fun PostItem(
     modifier = modifier
       .fillMaxWidth()
       .wrapContentHeight()
+//      .border(1.dp, MaterialTheme.colorScheme.outline, RoundedCornerShape(8.dp))
       .testTag("postItem${postMessage.hashCode()}"),
     shape = RoundedCornerShape(8.dp),
     border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
@@ -46,7 +47,7 @@ fun PostItem(
       )
       Column(
         modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.End
+        horizontalAlignment = Alignment.End,
       ) {
         Text(
           text = postMessage.date.toDateString(),
